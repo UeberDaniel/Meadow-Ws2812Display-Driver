@@ -10,8 +10,15 @@ When arranging the panels, make sure that the first pixel is always at the top l
 
 For the display test function (in the Task Run() function) at least one panel with 8x8 is required.
 
+Tested with Panles from https://aliexpress.com/item/32944813367.html
+
+With:
+* 1 x 16x16 panel
+* 4 x 8x8 panel in 1x4, 2x2 and 4x1 orientation
+* 4 x 32x8 panel in 1x4, 2x2 and 4x1 orientation
+
 
 TODO:
-
-* Add support for rotating the display
+* Add support for rotating and flipping the display
+* Add support for other paneltypes (orientation of the lines and rows of the LEDs inside a panel)
 * Add support for the WriteBuffer function
