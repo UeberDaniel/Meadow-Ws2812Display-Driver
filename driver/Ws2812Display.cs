@@ -144,6 +144,7 @@ namespace Ws2812Display
 
         /// <summary>
         /// Translates the imageBuffer to the outputStream and adds the brightness.
+        /// edited from https://github.com/bcr/Meadow.Ws2812/blob/main/Meadow.Ws2812/Ws2812.cs
         /// </summary>
         private void FormatOutputStream()
         {
