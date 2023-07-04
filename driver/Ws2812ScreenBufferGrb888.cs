@@ -186,7 +186,7 @@ namespace Ws2812Display
         /// <param name="x">The X pixel position.</param>
         /// <param name="y">The Y pixel position.</param>
         /// <returns>The pixel position in the LED strip.</returns>
-        public int GetPixelPos(int x, int y)
+        private int GetPixelPos(int x, int y)
         {
             int nativePanelX, nativePanelY, panelCountX, panelCountY, panelOffset, panelRowOffset;
 
