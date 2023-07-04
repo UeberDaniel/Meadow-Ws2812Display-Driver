@@ -6,7 +6,8 @@ With this driver it is possible to use WS2812 LED panels like a display, i.e. yo
 
 When arranging the panels, make sure that the first pixel is always at the top left or (in the second row) at the bottom right, see:
 
-![Ws2812panelLayout](https://github.com/UeberDaniel/Ws2812Display/assets/10797624/0857ad93-002d-4b16-87b7-0020e96bcf1d)
+![Ws2812panelLayout](https://github.com/UeberDaniel/Ws2812Display/assets/10797624/e34284ca-f42c-4a8b-8413-9939e12bb785)
+
 
 For the display test function (in the Task Run() function) at least one panel with 8x8 is required.
 
