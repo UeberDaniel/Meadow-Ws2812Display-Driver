@@ -1,5 +1,10 @@
 # Ws2812Display driver for Meadow
 
+## IMPORTANT! :
+**Make sure that you have a sufficiently large power source for many LEDs (min. 6 Amps per 256 LEDs).**
+**Also, these panels (especially 16x16 / 32x8 panels) get very hot. Without sufficient cooling, there is a risk of fire when used at full brightness for a longer period of time!**
+
+## USAGE :
 This driver has been created for the Meadow F7v2 Feather board, but should also be compatible with other Meadow boards.
 
 With this driver it is possible to use WS2812 LED panels like a display, i.e. you can arrange several panels horizontally, vertically or in a field and have a panel that corresponds to the total pixel count of the individual panels.
@@ -16,6 +21,8 @@ With:
 * 1 x 16x16 panel
 * 4 x 8x8 panel in 1x4, 2x2 and 4x1 orientation
 * 4 x 32x8 panel in 1x4, 2x2 and 4x1 orientation
+
+
 
 
 TODO:
