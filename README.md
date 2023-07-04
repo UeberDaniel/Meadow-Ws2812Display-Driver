@@ -9,6 +9,8 @@ This driver has been created for the Meadow F7v2 Feather board, but should also 
 
 With this driver it is possible to use WS2812 LED panels like a display, i.e. you can arrange several panels horizontally, vertically or in a field and have a panel that corresponds to the total pixel count of the individual panels.
 
+This driver uses the SPI-Bus, you have to connect the COPI/MOSI pin with the DIN line of the First Panel.
+
 When arranging the panels, make sure that the first pixel is always at the top left or (in the second row) at the bottom right, see:
 
 ![Ws2812panelLayout](https://github.com/UeberDaniel/Ws2812Display/assets/10797624/9f29494c-bb41-466c-b7ae-f0bfbcaa9b17)
