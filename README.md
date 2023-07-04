@@ -2,6 +2,9 @@
 
 ## IMPORTANT! :
 **Make sure that you have a sufficiently large power source for many LEDs (min. 6 Amps per 256 LEDs).**
+
+**!DO NOT USE THE 5 VOLTS FROM THE FEATHER BOARD!**
+
 **Also, these panels (especially 16x16 / 32x8 panels) get very hot. Without sufficient cooling, there is a risk of fire when used at full brightness for a longer period of time!**
 
 ## USAGE :
@@ -9,7 +12,7 @@ This driver has been created for the Meadow F7v2 Feather board, but should also 
 
 With this driver it is possible to use WS2812 LED panels like a display, i.e. you can arrange several panels horizontally, vertically or in a field and have a panel that corresponds to the total pixel count of the individual panels.
 
-This driver uses the SPI-Bus, you have to connect the COPI/MOSI pin with the DIN line of the First Panel.
+This driver uses the SPI-Bus, you have to connect the COPI/MOSI pin with the DIN line of the first Panel, also make sure to connect a GND line with the panel to have a stable data stream.
 
 When arranging the panels, make sure that the first pixel is always at the top left or (in the second row) at the bottom right, see:
 
