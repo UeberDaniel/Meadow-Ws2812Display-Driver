@@ -13,7 +13,7 @@ namespace Ws2812Display
         /// <summary>
         /// Color mode of the buffer.
         /// </summary>
-        public override ColorMode ColorMode => ColorMode.Format24bppRgb888;
+        public override ColorMode ColorMode => ColorMode.Format24bppGrb888;
 
         /// <summary>
         /// Width in LEDs of one panel.
