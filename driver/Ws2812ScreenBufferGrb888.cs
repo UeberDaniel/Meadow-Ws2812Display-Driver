@@ -1,7 +1,7 @@
-﻿using Meadow.Foundation.Graphics.Buffers;
+﻿using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
+using Meadow.Foundation.Graphics.Buffers;
 using System;
-using Meadow.Foundation;
 
 namespace Ws2812Display
 {
@@ -13,7 +13,7 @@ namespace Ws2812Display
         /// <summary>
         /// Color mode of the buffer.
         /// </summary>
-        public override ColorMode ColorMode => ColorMode.Format24bppRgb888; //Should be changed to Format24bppGrb888
+        public override ColorMode ColorMode => ColorMode.Format24bppRgb888;
 
         /// <summary>
         /// Width in LEDs of one panel.
@@ -76,7 +76,7 @@ namespace Ws2812Display
         }
 
         /// <summary>
-        /// Create a new WSs812bScreenBufferGrb888 object.
+        /// Create a new Ws2812ScreenBufferGrb888 object.
         /// </summary>
         public Ws2812ScreenBufferGrb888() : base() { }
 
@@ -171,12 +171,14 @@ namespace Ws2812Display
         }
 
         /// <summary>
-        /// Not implemented yet
+        /// Write a buffer to specific location to the current buffer
         /// </summary>
-        /// <exception cref="NotImplementedException">Throws always an exception.</exception>
+        /// <param name="x">x origin</param>
+        /// <param name="y">y origin</param>
+        /// <param name="buffer">buffer to write</param>
         public override void WriteBuffer(int x, int y, IPixelBuffer buffer)
         {
-            throw new NotImplementedException("Writebuffer not implemented yet.");
+            base.WriteBuffer(x, y, buffer);
         }
 
         /// <summary>

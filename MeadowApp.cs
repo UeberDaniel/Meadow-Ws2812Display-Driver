@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Ws2812Display
@@ -15,7 +16,7 @@ namespace Ws2812Display
         private MicroGraphics graphics;
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize...");
+            Resolver.Log.Info("Initialize...");
 
             // For the display test function, at least one panel with 8x8 is required.
             // If the panel / grid is larger, the corresponding parameters of the Ws2812Display must be adjusted.
@@ -25,23 +26,27 @@ namespace Ws2812Display
                 panelHeight:        8, 
                 panelCountWidth:    1, 
                 panelCountHeight:   1,
-                displayBrightness:  Ws2812Display.Brightness.Level2);
+                brightness:         Ws2812Display.DisplayBrightness.Level_3);
 
-            graphics = new MicroGraphics(display);
-            return base.Initialize();
+            graphics = new MicroGraphics(display)
+            {
+                IgnoreOutOfBoundsPixels = true
+            };
+
+            return Task.CompletedTask;
         }
 
         public override async Task Run()
         {
-            Console.WriteLine("Run...");
+            Resolver.Log.Info("Run...");
 
-            while (true)
-            {
+            while(true) 
+            { 
                 // Ws2812 Display Test
 
                 for (int i = 0; i < 8; i++)
                 {
-                    display.DisplayBrightness = (Ws2812Display.Brightness)i;
+                    display.Brightness = (Ws2812Display.DisplayBrightness)i;
                     byte r = (byte)rand.Next(0, 255);
                     byte g = (byte)rand.Next(0, 255);
                     byte b = (byte)rand.Next(0, 255);
@@ -70,7 +75,7 @@ namespace Ws2812Display
                         await Task.Delay(5);
                     }
                 }
-                Console.WriteLine("Current color: " + display.PixelBuffer.GetPixel(0, 0).ToString());
+                Resolver.Log.Info("Current color: " + display.PixelBuffer.GetPixel(0, 0).ToString());
                 await Task.Delay(250);
                 for (int x = 0; x < 8; x++)
                 {
@@ -81,9 +86,9 @@ namespace Ws2812Display
                         await Task.Delay(5);
                     }
                 }
-                Console.WriteLine("Current color: " + display.PixelBuffer.GetPixel(0, 0).ToString());
+                Resolver.Log.Info("Current color: " + display.PixelBuffer.GetPixel(0, 0).ToString());
 
-                display.DisplayBrightness = Ws2812Display.Brightness.Level2;
+                display.Brightness = Ws2812Display.DisplayBrightness.Level_2;
 
 
                 // MicroGraphics Test
@@ -113,10 +118,39 @@ namespace Ws2812Display
                 graphics.CurrentFont = new Font4x6();
                 graphics.DrawText(0, 1, "HI", Color.Red);
                 graphics.Show();
-                await Task.Delay(500);
+                await Task.Delay(2000);
                 graphics.Clear();
                 await Task.Delay(250);
+
+                // Image Test
+
+                display.Brightness = Ws2812Display.DisplayBrightness.Level_7;
+
+                DrawImageFromFile(0, 0);
+                await Task.Delay(2000);
+
+                DrawImageFromResource(0, 0);
+                await Task.Delay(2000);
             }
+        }
+
+        private void DrawImageFromFile(int x = 0, int y = 0)
+        {
+            Resolver.Log.Info("Showing file...");
+            var filePath = Path.Combine(MeadowOS.FileSystem.UserFileSystemRoot, $"snake.bmp");
+            var image = Image.LoadFromFile(filePath);
+            graphics.Clear();
+            graphics.DrawImage(x, y, image);
+            graphics.Show();
+        }
+
+        private void DrawImageFromResource(int x = 0, int y = 0)
+        {
+            Resolver.Log.Info("Showing resource...");
+            var image = Image.LoadFromResource($"zombie_res.bmp");
+            graphics.Clear();
+            graphics.DrawImage(x, y, image);
+            graphics.Show();
         }
     }
 }

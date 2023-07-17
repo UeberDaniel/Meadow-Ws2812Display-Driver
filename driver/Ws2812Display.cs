@@ -9,11 +9,11 @@ namespace Ws2812Display
 {
     public class Ws2812Display : IGraphicsDisplay, ISpiPeripheral
     {
-        public enum Brightness { Level0 = 7, Level1 = 6, Level2 = 5, Level3 = 4, Level4 = 3, Level5 = 2, Level6 = 1, Level7 = 0 }
+        public enum DisplayBrightness { Level_0 = 7, Level_1 = 6, Level_2 = 5, Level_3 = 4, Level_4 = 3, Level_5 = 2, Level_6 = 1, Level_7 = 0 }
         /// <summary>
-        /// Brightness level for the Display: Level0(dark) - Level7(bright)
+        /// Brightness level for the Display: Level_0(dark) - Level_7(bright)
         /// </summary>
-        public Brightness DisplayBrightness { get; set; }
+        public DisplayBrightness Brightness { get; set; }
         public ColorMode ColorMode => imageBuffer.ColorMode;
         public ColorMode SupportedColorModes { get; }
         public int Width => imageBuffer.Width;
@@ -81,11 +81,11 @@ namespace Ws2812Display
         /// <param name="panelHeight">Height in LEDs of one panel.</param>
         /// <param name="panelCountWidth">Count of panels on the X-axis.</param>
         /// <param name="panelCountHeight">Count of panels on the Y-axis.</param>
-        /// <param name="displayBrightness">Brightness of the display.</param>
-        public Ws2812Display(ISpiBus spiBus, int panelWidth, int panelHeight, int panelCountWidth, int panelCountHeight, Brightness displayBrightness = Brightness.Level4)
+        /// <param name="brightness">Brightness of the display.</param>
+        public Ws2812Display(ISpiBus spiBus, int panelWidth, int panelHeight, int panelCountWidth, int panelCountHeight, DisplayBrightness brightness = DisplayBrightness.Level_4)
         {
             spiComms = new SpiCommunications(spiBus, null, DefaultSpiBusSpeed, DefaultSpiBusMode);
-            DisplayBrightness = displayBrightness;
+            Brightness = brightness;
             imageBuffer = new Ws2812ScreenBufferGrb888(panelWidth, panelHeight, panelCountWidth, panelCountHeight);
             outputStream = new byte[panelWidth * panelHeight * panelCountWidth * panelCountHeight * 4 * 3];
         }
@@ -139,7 +139,8 @@ namespace Ws2812Display
 
         public void WriteBuffer(int x, int y, IPixelBuffer displayBuffer)
         {
-            throw new NotImplementedException();
+            if (((displayBuffer.Width + x) <= Width) && ((displayBuffer.Height + y) <= Height)) WriteBuffer(x, y, displayBuffer);
+            else throw new IndexOutOfRangeException();
         }
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace Ws2812Display
         /// </summary>
         private void FormatOutputStream()
         {
-            byte brightness = (byte)DisplayBrightness;
+            byte brightness = (byte)Brightness;
             int position;
             byte theByte;
             for (int index = 0; index < imageBuffer.Buffer.Length; index++)

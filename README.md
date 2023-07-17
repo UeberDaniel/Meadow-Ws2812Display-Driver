@@ -28,4 +28,3 @@ With:
 TODO:
 * Add support for rotating and flipping the display
 * Add support for other paneltypes (orientation of the lines and rows of the LEDs inside a panel)
-* Add support for the WriteBuffer function
