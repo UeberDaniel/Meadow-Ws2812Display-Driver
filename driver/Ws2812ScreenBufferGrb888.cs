@@ -2,7 +2,6 @@
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.Buffers;
 using System;
-using System.Diagnostics;
 
 namespace Ws2812Display
 {
@@ -185,13 +184,13 @@ namespace Ws2812Display
                 {
                     for (int _y = 0; _y < buffer.Height; _y++)
                     {
-                        int PosToWrite = GetPixelPos(x + _x, y + _y);
+                        int posToWrite = GetPixelPos(x + _x, y + _y);
                         int posToRead = ((_y * buffer.Width) + _x) * 3;
 
-                        Buffer[PosToWrite++] = buffer.Buffer[++posToRead];
-                        Buffer[PosToWrite++] = buffer.Buffer[--posToRead];
+                        Buffer[posToWrite++] = buffer.Buffer[++posToRead];
+                        Buffer[posToWrite++] = buffer.Buffer[--posToRead];
                         posToRead += 2;
-                        Buffer[PosToWrite] = buffer.Buffer[posToRead];
+                        Buffer[posToWrite] = buffer.Buffer[posToRead];
                     }
                 }
             }
