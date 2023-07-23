@@ -2,6 +2,7 @@
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.Buffers;
 using System;
+using System.Diagnostics;
 
 namespace Ws2812Display
 {
@@ -178,7 +179,23 @@ namespace Ws2812Display
         /// <param name="buffer">buffer to write</param>
         public override void WriteBuffer(int x, int y, IPixelBuffer buffer)
         {
-            base.WriteBuffer(x, y, buffer);
+            if (buffer.ColorMode == ColorMode.Format24bppRgb888)
+            {
+                for (int _x = 0; _x < buffer.Width; _x++)
+                {
+                    for (int _y = 0; _y < buffer.Height; _y++)
+                    {
+                        int PosToWrite = GetPixelPos(x + _x, y + _y);
+                        int posToRead = ((_y * buffer.Width) + _x) * 3;
+
+                        Buffer[PosToWrite++] = buffer.Buffer[++posToRead];
+                        Buffer[PosToWrite++] = buffer.Buffer[--posToRead];
+                        posToRead += 2;
+                        Buffer[PosToWrite] = buffer.Buffer[posToRead];
+                    }
+                }
+            }
+            else base.WriteBuffer(x, y, buffer);
         }
 
         /// <summary>
