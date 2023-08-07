@@ -1,5 +1,8 @@
 # Ws2812Display driver for Meadow
 
+![Screenshot 2023-08-07 112907](https://github.com/UeberDaniel/Meadow-Ws2812Display-Driver/assets/10797624/b8f535aa-3b42-4ee1-afab-a1b46d67cf3a)![Screenshot 2023-08-07 113022](https://github.com/UeberDaniel/Meadow-Ws2812Display-Driver/assets/10797624/05bff9a8-2bd7-4799-98f2-fc7dfc162d9b)
+
+
 ## IMPORTANT! :
 **Make sure that you have a sufficiently large external power source for many LEDs (min. 6 Amps per 256 LEDs).**
 
@@ -20,14 +23,13 @@ When arranging the panels, make sure that the first pixel is always at the top l
 
 For the display test function (in the Task Run() function) at least one panel with 8x8 is required.
 
-Tested with panles from https://aliexpress.com/item/32944813367.html
+Tested with panles from [https://aliexpress.com/item/32944813367.html](https://de.aliexpress.com/item/32944813367.html)
 
 With:
 * 1 x 16x16 panel
 * 4 x 8x8 panel in 1x4, 2x2 and 4x1 orientation
 * 4 x 32x8 panel in 1x4, 2x2 and 4x1 orientation
-
-
+* 32 x 16x16 panel in 8x4 orientation
 
 
 ## TODO:
