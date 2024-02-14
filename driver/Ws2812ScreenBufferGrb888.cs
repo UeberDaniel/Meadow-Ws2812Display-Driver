@@ -3,7 +3,7 @@ using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.Buffers;
 using System;
 
-namespace Ws2812Display
+namespace Meadow.Foundation.Displays
 {
     /// <summary>
     /// Represents a 24bpp color pixel buffer, formated for WS2812 LED Panels
@@ -41,6 +41,12 @@ namespace Ws2812Display
         private int spSize;
 
         /// <summary>
+        /// Lookuptable for the LEDs in the Strip.
+        /// </summary>
+        private int [,] ledStripLookupTable;
+
+
+        /// <summary>
         /// Create a new Ws2812ScreenBufferGrb888 object.
         /// </summary>
         /// <param name="spWidth">Width in LEDs of one panel.</param>
@@ -56,6 +62,7 @@ namespace Ws2812Display
             this.pcWidth = pcWidth;
             this.pcHeight = pcHeight;
             spSize = spWidth * spHeight;
+            CalculateLookupTable();
         }
 
         /// <summary>
@@ -73,6 +80,7 @@ namespace Ws2812Display
             this.pcWidth = pcWidth;
             this.pcHeight = pcHeight;
             spSize = spWidth * spHeight;
+            CalculateLookupTable();
         }
 
         /// <summary>
@@ -185,9 +193,9 @@ namespace Ws2812Display
                     for (int _y = 0; _y < buffer.Height; _y++)
                     {
                         int posToWrite = GetPixelPos(x + _x, y + _y);
-                        int posToRead = ((_y * buffer.Width) + _x) * 3;
+                        int posToRead = (1 + ((_y * buffer.Width) + _x) * 3);
 
-                        Buffer[posToWrite++] = buffer.Buffer[++posToRead];
+                        Buffer[posToWrite++] = buffer.Buffer[posToRead];
                         Buffer[posToWrite++] = buffer.Buffer[--posToRead];
                         posToRead += 2;
                         Buffer[posToWrite] = buffer.Buffer[posToRead];
@@ -198,13 +206,43 @@ namespace Ws2812Display
         }
 
         /// <summary>
-        /// Calculates the LED position in the LED strip.
+        /// Method for filling up the lookup table
+        /// </summary>
+        private void CalculateLookupTable()
+        {
+            int xMax = spWidth * pcWidth;
+            int yMax = spHeight * pcHeight;
+            ledStripLookupTable = new int[xMax, yMax];
+
+            for (int x = 0; x < xMax; x++)
+            {
+                for (int y = 0; y < yMax; y++)
+                {
+                    ledStripLookupTable[x,y] = GetPixelPosSlow(x, y);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the LED position in the LED strip based on the precalculated lookup table.
         /// See WS2812panelLayout.jpg
         /// </summary>
         /// <param name="x">The X pixel position.</param>
         /// <param name="y">The Y pixel position.</param>
         /// <returns>The pixel position in the LED strip.</returns>
         private int GetPixelPos(int x, int y)
+        {
+            return ledStripLookupTable[x, y];
+        }
+
+        /// <summary>
+        /// Calculates the LED position in the LED strip.
+        /// See WS2812panelLayout.jpg
+        /// </summary>
+        /// <param name="x">The X pixel position.</param>
+        /// <param name="y">The Y pixel position.</param>
+        /// <returns>The pixel position in the LED strip.</returns>
+        private int GetPixelPosSlow(int x, int y)
         {
             int nativePanelX, nativePanelY, panelCountX, panelCountY, panelOffset, panelRowOffset;
 
