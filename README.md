@@ -31,6 +31,8 @@ With:
 * 4 x 32x8 panel in 1x4, 2x2 and 4x1 orientation
 * 32 x 16x16 panel in 8x4 orientation
 
+## UPDATE:
+This may have an effect when using images with an LED display (if it has a high number of pixels), the conversion requires a lot of memory and can lead to a crash in the worst case. The memory used should be calculated beforehand. When changing the image (with Micrographics), the previously used ram should be released again (depending on the display resolution, if there was a high RAM usage it ca lead to a crash). This means the required net RAM bytes utilization for this extension is equal to the number of pixels in the LED grid * 7 (for the output stream) * 3 (for the screen buffer) + ( 1 * LED grid (for the lookup table)) + 4 bytes for the byte to LED Strop mapping. Means 11 * the number of bytes of the RGB LED number + 4 bytes. IGraphicsDisplay & ISpiPeripheral & C# mono overhead not included.
 
 ## TODO:
 * Add support for rotating and flipping the display
