@@ -1,9 +1,9 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.Buffers;
 using System;
 
-namespace Meadow.Foundation.Displays
+namespace Ws2812Display
 {
     /// <summary>
     /// Represents a 24bpp color pixel buffer, formated for WS2812 LED Panels
