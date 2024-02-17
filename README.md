@@ -39,7 +39,7 @@ The required net LED COUNT RAM utilization is equal to the number of pixels in t
 There is no C#, IGraphicsDisplay (and no JPEG to binary conversion) or Mono overhead not included, just the used bytes for the buffers.
 
 ## HINT:
-Since the Meadow Feather F7 board does not yet offer the possibility to run in debug mode / display the RAM utilization at runtime, I could not determine or name the utilization.
+Since the Meadow Feather F7 board does not yet offer the possibility to run in resource utilization debug mode / display the RAM utilization at runtime, I could not determine or name the utilization.
 With 32 16x16 panels -> effectively almost 200 Kbyte RAM usage (only buffers) I already had a crash when I had loaded an image and was about to load the next one without freeing the memory of the last image.
 So always free up the memory that is no longer in use.
 
