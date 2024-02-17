@@ -9,6 +9,7 @@
 **!DO NOT USE THE 5 VOLTS FROM THE FEATHER BOARD!**
 
 **Also, these panels (especially 16x16 / 32x8 panels) get very hot. Without sufficient cooling, there is a risk of fire when used at full brightness for a longer period of time!**
+
 *You can counteract this during testing with a reduced voltage, 2,5 - 3 volts are sufficient for the WS2812b LEDs (reduces the power consumption by at least 40 % and thus also the heat development).*
 
 ## USAGE :
